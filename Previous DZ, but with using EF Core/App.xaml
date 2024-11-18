@@ -1,0 +1,9 @@
+﻿<Application x:Class="Previous_DZ__but_with_using_EF_Core.App"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:local="clr-namespace:Previous_DZ__but_with_using_EF_Core"
+             StartupUri="MainWindow.xaml">
+    <Application.Resources>
+         
+    </Application.Resources>
+</Application>
