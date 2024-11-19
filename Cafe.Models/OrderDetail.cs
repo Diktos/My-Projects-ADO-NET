@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace Cafe.Models
 {
-    public class OrderDetails
+    public class OrderDetail
     {
         public int Id { get; set; }
         public string OrderDate { get; set; }

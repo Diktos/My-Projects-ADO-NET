@@ -3,6 +3,7 @@ using System;
 using EFCore_Demo;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 #nullable disable
@@ -10,9 +11,11 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace EFCoreMigrationDemo.Migrations
 {
     [DbContext(typeof(CafeDbContext))]
-    partial class CafeDbContextModelSnapshot : ModelSnapshot
+    [Migration("20241118175233_m5")]
+    partial class m5
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder.HasAnnotation("ProductVersion", "8.0.11");
@@ -45,23 +48,6 @@ namespace EFCoreMigrationDemo.Migrations
                     b.HasKey("Id");
 
                     b.ToTable("Roles");
-
-                    b.HasData(
-                        new
-                        {
-                            Id = 1,
-                            Name = "Admin"
-                        },
-                        new
-                        {
-                            Id = 2,
-                            Name = "Manager"
-                        },
-                        new
-                        {
-                            Id = 3,
-                            Name = "Waiter"
-                        });
                 });
 
             modelBuilder.Entity("Cafe.Models.User", b =>
@@ -70,7 +56,7 @@ namespace EFCoreMigrationDemo.Migrations
                         .ValueGeneratedOnAdd()
                         .HasColumnType("INTEGER");
 
-                    b.Property<DateTime?>("Birthday")
+                    b.Property<DateTime>("Birthday")
                         .HasColumnType("TEXT");
 
                     b.Property<string>("Name")
@@ -84,14 +70,6 @@ namespace EFCoreMigrationDemo.Migrations
                     b.HasKey("Id");
 
                     b.ToTable("Users");
-
-                    b.HasData(
-                        new
-                        {
-                            Id = 1,
-                            Name = "admin",
-                            Password = "12345"
-                        });
                 });
 
             modelBuilder.Entity("Cafe.Models.UserRole", b =>
@@ -113,14 +91,6 @@ namespace EFCoreMigrationDemo.Migrations
                     b.HasIndex("UserId");
 
                     b.ToTable("UserRoles");
-
-                    b.HasData(
-                        new
-                        {
-                            Id = 1,
-                            RoleId = 1,
-                            UserId = 1
-                        });
                 });
 
             modelBuilder.Entity("Cafe.Models.UserRole", b =>

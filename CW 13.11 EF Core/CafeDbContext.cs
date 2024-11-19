@@ -10,7 +10,7 @@ namespace CW_13._11_EF_Core
 {
     public class CafeDbContext:DbContext
     {
-        public DbSet<User> Users { get; set; }
+        public DbSet<User> Waiters { get; set; }
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
             base.OnConfiguring(optionsBuilder);

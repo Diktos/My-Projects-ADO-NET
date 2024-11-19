@@ -6,9 +6,10 @@ using System.Threading.Tasks;
 
 namespace Cafe.Models
 {
-    public class Currencies
+    public class Nomenclature
     {
-        public string Code {  get; set; }   
+        public int Id { get; set; }
         public string Name { get; set; }
+        public double Price { get; set; }
     }
 }
