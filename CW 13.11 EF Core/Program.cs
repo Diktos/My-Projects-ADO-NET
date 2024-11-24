@@ -2,7 +2,7 @@
 using Cafe.Models;
 using (var context = new CafeDbContext())
 {
-    foreach(var waiter in context.Waiters.ToArray())
+    foreach(var waiter in context.Users.ToArray())
     {
         Console.WriteLine($"{waiter.Id} {waiter.Name} {waiter.Password} {waiter.Birthday}");
     }

@@ -9,12 +9,14 @@ using (var context = new CafeDbContext())
     var role = new Role { Name = "Manager" };
     var userRole = new UserRole { Role = role, User = user };
 
+    var users = context.Users.Include(i => i.UserRoles.ToArray());
+
     context.Add(user);
     context.Add(role);
     context.Add(userRole);
     context.SaveChanges();
 
-    var users = context.Users.Include(i => i.UserRoles.ToArray());
+
 
     var userRoles = context.UserRoles.ToArray();
 

@@ -31,7 +31,8 @@ namespace Previous_DZ__but_with_using_EF_Core
         {
             using (var context = new CafeDbContext())
             {
-                waiters=new ObservableCollection<User>(context.Waiters.ToList());
+                MessageBox.Show("No users found in the database.", "1234", MessageBoxButton.OKCancel);
+                waiters =new ObservableCollection<User>(context.Users.ToList());
 
                 dg.ItemsSource = waiters; // Робимо зв'язок з DataGrid
             }
@@ -41,7 +42,7 @@ namespace Previous_DZ__but_with_using_EF_Core
         {
             using (var context = new CafeDbContext())
             {
-                var currentWaiter = context.Waiters.FirstOrDefault(w => w.Id == SelectedWaiter.Id);  // Знаходимо існуючого офіціанта за ID
+                var currentWaiter = context.Users.FirstOrDefault(w => w.Id == SelectedWaiter.Id);  // Знаходимо існуючого офіціанта за ID
 
                 if (currentWaiter != null)
                 {
@@ -68,7 +69,7 @@ namespace Previous_DZ__but_with_using_EF_Core
                         Birthday = DateTime.TryParse(BirthdayTextBox.Text, out DateTime result) ? result : DateTime.Now,
                     };
 
-                    context.Waiters.Add(newWaiter); // Додаємо новий об'єкт до бази
+                    context.Users.Add(newWaiter); // Додаємо новий об'єкт до бази
                     context.SaveChanges();
 
                     waiters.Add(newWaiter); // Додаємо його в поточно-використовувану колекцію для dg.ItemsSource(DataGrid)
@@ -85,11 +86,11 @@ namespace Previous_DZ__but_with_using_EF_Core
 
             using (var context = new CafeDbContext())
             {
-                var waiterToDelete = context.Waiters.SingleOrDefault<User>(w => w.Id == SelectedWaiter.Id); 
+                var waiterToDelete = context.Users.SingleOrDefault<User>(w => w.Id == SelectedWaiter.Id); 
 
                 if (waiterToDelete != null)
                 {
-                    context.Waiters.Remove(waiterToDelete); // Для бази
+                    context.Users.Remove(waiterToDelete); // Для бази
                     context.SaveChanges(); 
 
                     waiters.Remove(SelectedWaiter); // Для DataGrid

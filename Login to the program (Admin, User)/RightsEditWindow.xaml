@@ -1,0 +1,56 @@
+﻿<Window x:Class="Login_to_the_program__Admin__User_.RightsEditWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:Login_to_the_program__Admin__User_"
+        mc:Ignorable="d" Loaded="Window_Loaded"
+        Title="RightsEditWindow" Height="300" Width="550">
+    <Window.Resources>
+        <local:BoolToVisibilityConverter x:Key="boolToVisibilityConverter" />
+        <local:BoolToVisibilityMultiConverter x:Key="boolToVisibilityMultiConverter" />
+    </Window.Resources>
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="*" />
+        </Grid.RowDefinitions>
+
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="400" />
+            <ColumnDefinition Width="*" />
+        </Grid.ColumnDefinitions>
+
+        <DataGrid Name="UserDataGrid" Grid.Row="0" Grid.Column="0" Margin="10"
+          BeginningEdit="dg_BeginningEdit"
+          AutoGenerateColumns="False" SelectionChanged="UserDataGrid_SelectionChanged" 
+                  CanUserAddRows="False" CanUserDeleteRows="False">
+            <DataGrid.Columns>
+                <DataGridTextColumn Header="ID" Binding="{Binding Id}" Width="Auto"/>
+                <DataGridTextColumn Header="Name" Binding="{Binding Name}" Width="*"/>
+                <DataGridTextColumn Header="Birthday" Binding="{Binding Birthday}" Width="*"/>
+            </DataGrid.Columns>
+        </DataGrid>
+
+        <!-- Комбобокс для вибору ролі -->
+        <StackPanel Grid.Row="0" Grid.Column="1" HorizontalAlignment="Center">
+            <TextBlock Text="Specify the roles:" FontSize="12" Margin="0,50,0,10"/>
+            <ComboBox Name="RoleComboBox"  Width="100" Height="20" SelectionChanged="RoleComboBox_SelectionChanged" 
+           ItemsSource="{Binding TypeRoles}"
+            >
+                <ComboBox.ItemTemplate>
+                    <DataTemplate>
+                        <StackPanel Orientation="Horizontal">
+                            <!-- Використовуємо лише один параметр (IsChecked) -->
+                            <TextBlock Text="+   " FontSize="15" VerticalAlignment="Center" 
+                           Visibility="{Binding IsChecked, Converter={StaticResource boolToVisibilityConverter}}"
+                                       />
+
+                            <TextBlock Text="{Binding Role.Name}" />
+                        </StackPanel>
+                    </DataTemplate>
+                </ComboBox.ItemTemplate>
+            </ComboBox>
+        </StackPanel>
+    </Grid>
+</Window>
