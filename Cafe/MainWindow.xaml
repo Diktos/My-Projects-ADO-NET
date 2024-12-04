@@ -5,9 +5,21 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:Cafe"
         mc:Ignorable="d"
-        Title="MainWindow" Height="450" Width="800" Loaded="Window_Loaded"
-        >
+        Title="MainWindow" Height="450" Width="800">
     <Grid>
+        <local:Login Visibility="Visible" x:Name="LoginFrame" Width="400" HorizontalAlignment="Center" VerticalAlignment="Center" BorderBrush="Black" Background="AliceBlue" />
 
+        <StackPanel x:Name="MainMenu" Orientation="Vertical" Visibility="Collapsed"  VerticalAlignment="Center">
+            <Label FontSize="30" HorizontalAlignment="Center" FontWeight="DemiBold" >Choose what to work with:</Label>
+            <Button Click="NomenclatureItemsFrame_Click"  Width="300" Height="50" FontSize="30" Margin="0,50" >Nomenclatures</Button>
+            <Button Click="ButtonOrders_Click"  Margin="0,50" Width="300" Height="50" FontSize="30" >Orders</Button>
+        </StackPanel>
+
+        <local:OrderEdit Visibility="Collapsed" x:Name="OrderEditFrame" />
+        <local:OrderItems Visibility="Collapsed" x:Name="OrderItemsFrame" />
+        <local:NomenclatureItems Visibility="Collapsed" x:Name="NomenclatureItemsFrame" />
+        <local:NomenclatureEdit Visibility="Collapsed" x:Name="NomenclatureEditFrame" />
+        <local:ErrorException Visibility="Collapsed" x:Name="ErrorExceptionFrame" />
+        <local:ActionСonfirmationUserControl Visibility="Collapsed" x:Name="ActionСonfirmationFrame" />
     </Grid>
 </Window>

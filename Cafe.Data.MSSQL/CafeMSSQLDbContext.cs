@@ -5,10 +5,19 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Cafe.Data.MSSQL
+namespace Cafe.Data
 {
-    public sealed class CafeMSSQLDbContext:DbContext
-    {
 
+    public class CafeMSSQLDbContext : CafeDbContext
+    {
+        //public CafeMSSQLDbContext(DbContextOptions options) : base(options)
+        //{
+        //}
+
+        protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
+        {
+            base.OnConfiguring(optionsBuilder);
+            optionsBuilder.UseSqlServer();
+        }
     }
 }

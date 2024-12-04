@@ -1,0 +1,19 @@
+﻿<UserControl x:Class="Cafe.ActionСonfirmationUserControl"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:local="clr-namespace:Cafe"
+             mc:Ignorable="d" 
+                    d:DesignHeight="200" d:DesignWidth="600">
+    <Grid MaxHeight="200" MaxWidth="600">
+        <Border BorderBrush="Black" BorderThickness="5" >
+            <Grid Background="OldLace">
+                <TextBlock x:Name="InformationText" FontSize="20" VerticalAlignment="Center" Margin="50,0,0,30" Text="Default information" Foreground="DarkGreen" FontWeight="Bold" />
+
+                <Button HorizontalAlignment="Left" VerticalAlignment="Bottom" Height="30" Margin="25" Width="100" Content="OK" Click="ButtonOk_Click"/>
+                <Button HorizontalAlignment="Right" VerticalAlignment="Bottom" Height="30" Margin="25" Width="100" Content="Cancel" Click="ButtonCancel_Click" />
+            </Grid>
+        </Border>
+    </Grid>
+</UserControl>

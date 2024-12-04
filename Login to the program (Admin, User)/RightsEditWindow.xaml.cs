@@ -29,7 +29,7 @@ namespace Login_to_the_program__Admin__User_
 
         public ObservableCollection<RoleWithIsChecked> TypeRoles { get; set; } = new ObservableCollection<RoleWithIsChecked>
         {
-            new RoleWithIsChecked { Role = Role.User, IsChecked = false },
+            new RoleWithIsChecked { Role = Role.Waiter, IsChecked = false },
             new RoleWithIsChecked { Role = Role.Manager, IsChecked = false },
             new RoleWithIsChecked { Role = Role.Admin, IsChecked = false }
         };

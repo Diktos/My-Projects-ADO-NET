@@ -1,0 +1,44 @@
+﻿<UserControl x:Class="Cafe.OrderEdit"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:local="clr-namespace:Cafe"
+             mc:Ignorable="d" 
+             d:DesignHeight="450" d:DesignWidth="800">
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="auto"/>
+            <RowDefinition Height="auto"/>
+        </Grid.RowDefinitions>
+        <Grid>
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition />
+                <ColumnDefinition />
+            </Grid.ColumnDefinitions>
+            <Button Margin="5" Template="{StaticResource RoundedButtonTemplate}" Click="ButtonOk_Click">Ok</Button>
+            <Button Grid.Column="1" Margin="5" Template="{StaticResource RoundedButtonTemplate}" Click="ButtonCancel_Click">Cancel</Button>
+        </Grid>
+        <Grid Grid.Row="1">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="auto"/>
+                <RowDefinition Height="auto"/>
+                <RowDefinition Height="auto"/>
+                <RowDefinition Height="auto"/>
+            </Grid.RowDefinitions>
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="auto"/>
+                <ColumnDefinition />
+            </Grid.ColumnDefinitions>
+            <Label>Час замовлення</Label>
+            <Label Grid.Row="1">Столик</Label>
+            <Label Grid.Row="2">Сума замовлення </Label>
+            <Label Grid.Row="3">Сума оплати</Label>
+            <TextBox x:Name="Time_orderTextBox" Grid.Column="1" Text="{Binding ElementName=ThisWindow,Path=EditItem.Time_order}"/>
+            <TextBox x:Name="AbonentTextBox" Grid.Row="1" Grid.Column="1" Text="{Binding ElementName=ThisWindow,Path=EditItem.Abonent}"/>
+            <TextBox x:Name="NameTextBox" Grid.Row="2" Grid.Column="1" Text="{Binding ElementName=ThisWindow,Path=EditItem.Sum}"/>
+            <TextBox x:Name="PriceTextBox" Grid.Row="3" Grid.Column="1" Text="{Binding ElementName=ThisWindow,Path=EditItem.Bill}"/>
+        </Grid>
+
+    </Grid>
+</UserControl>

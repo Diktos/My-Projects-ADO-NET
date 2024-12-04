@@ -1,0 +1,38 @@
+﻿<UserControl x:Class="Cafe.NomenclatureEdit"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:local="clr-namespace:Cafe"
+             mc:Ignorable="d" 
+             d:DesignWidth="800" x:Name="NomEditWindow" IsVisibleChanged="NomEditWindow_IsVisibleChanged" >
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="auto"/>
+            <RowDefinition Height="auto"/>
+        </Grid.RowDefinitions>
+        <Grid>
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition />
+                <ColumnDefinition />
+            </Grid.ColumnDefinitions>
+            <Button Margin="5" Template="{StaticResource RoundedButtonTemplate}" Click="Button_ClickOk">Ok</Button>
+            <Button Grid.Column="1" Margin="5" Template="{StaticResource RoundedButtonTemplate}" Click="Button_ClickCancel">Cancel</Button>
+        </Grid>
+        <Grid Grid.Row="1">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="auto"/>
+                <RowDefinition Height="auto"/>
+            </Grid.RowDefinitions>
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="auto"/>
+                <ColumnDefinition />
+            </Grid.ColumnDefinitions>
+            <Label>Назва</Label>
+            <Label Grid.Row="1">Ціна</Label>
+            <TextBox x:Name="NameTextBox" Grid.Column="1" Text="{Binding ElementName=ThisWindow,Path=EditItem.Name}"/>
+            <TextBox x:Name="PriceTextBox" Grid.Row="1" Grid.Column="1" Text="{Binding ElementName=ThisWindow,Path=EditItem.Price}"/>
+        </Grid>
+
+    </Grid>
+</UserControl>

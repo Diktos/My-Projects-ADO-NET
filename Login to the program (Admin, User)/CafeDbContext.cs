@@ -31,7 +31,7 @@ namespace Login_to_the_program__Admin__User_
             modelBuilder.Entity<Role>().HasData(new Role[] {
                new Role { Id=Cafe.Models.Role.Admin.Id, Name=Cafe.Models.Role.Admin.Name },
                new Role { Id=Cafe.Models.Role.Manager.Id, Name=Cafe.Models.Role.Manager.Name },
-               new Role { Id=Cafe.Models.Role.User.Id, Name=Cafe.Models.Role.User.Name }
+               new Role { Id=Cafe.Models.Role.Waiter.Id, Name=Cafe.Models.Role.Waiter.Name }
             });
             modelBuilder.Entity<User>().HasData(new User[] { new User { Id=User.Admin.Id, Name=User.Admin.Name, Password=User.Admin.Password } });
             // Зв'язок користувача з роллю

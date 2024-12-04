@@ -18,9 +18,5 @@ namespace Cafe.Models
         [ForeignKey(nameof(Role))]
         public int RoleId { get; set; }
 
-        public UserRole()
-        {
-            RoleId = 3;
-        }
     }
 }
