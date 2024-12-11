@@ -48,7 +48,7 @@ void MultiplyElements()
     matrixLib.MultiplySingleThread(a, b, c, dimension);
 }
 
-Console.WriteLine($"Час виконання обчислень в 1 потоці: {CalcTimeOnGenerating(() => matrixLib.MultiplySingleThread(a, b, c, dimension))} мілісекунд");
+Console.WriteLine($"Час виконання обчислень в 1 потоці: {CalcTimeOnGenerating(() => MultiplyElements())} мілісекунд");
 
 
 // 2 Тест
