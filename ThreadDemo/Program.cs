@@ -27,7 +27,7 @@ double CalcTimeOnGenerating(Action action)
 
     action();
 
-    return (DateTime.Now - start_time).TotalMilliseconds;
+    return (DateTime.Now - start_time).TotalSeconds;
 }
 
 var matrixLib = new Matrix(); 
@@ -41,44 +41,55 @@ var a = matrixLib.CreateMatrix(dimension);
 var b = matrixLib.CreateMatrix(dimension);
 var c = new double[dimension, dimension];
 
-// 1 Тест
-
 void MultiplyElements()
 {
     matrixLib.MultiplySingleThread(a, b, c, dimension);
 }
 
-Console.WriteLine($"Час виконання обчислень в 1 потоці: {CalcTimeOnGenerating(() => MultiplyElements())} мілісекунд");
+for (int i = 0; i < dimensions.Length; i++)
+{
+    dimension = dimensions[i]; // Квадратичні габарити матриці
+
+    a = matrixLib.CreateMatrix(dimension);
+    b = matrixLib.CreateMatrix(dimension);
+    c = new double[dimension, dimension];
+
+    Console.WriteLine($"Матриця на {dimension}: ");
+
+    // 1 Тест
+
+    Console.WriteLine($"Час виконання обчислень в 1 потоці: {CalcTimeOnGenerating(() => MultiplyElements())} секунд");
+
+    // 2 Тест
+
+    // () => Лямбда-вираз, який створює анонімний метод, що відповідає типу Action
+    //Console.WriteLine($"Час виконання обчислень в потокох по одному на результатуючу ячейку: {CalcTimeOnGenerating(() => matrixLib.MultiplyEachElementInThread(a, b, c, dimension))} секунд");
+
+    //3 Тест
+
+    Console.WriteLine($"Час виконання обчислень в потоках по одному на рядок матриці: {CalcTimeOnGenerating(() => matrixLib.MultiplyEachRowInThread(a, b, c, dimension))} секунд");
 
 
-// 2 Тест
+    //4 Тест
 
-// () => Лямбда-вираз, який створює анонімний метод, що відповідає типу Action
-Console.WriteLine($"Час виконання обчислень в потокох по одному на результатуючу ячейку: {CalcTimeOnGenerating(() => matrixLib.MultiplyEachElementInThread(a, b, c, dimension))} мілісекунд");
-
-//3 Тест
-
-Console.WriteLine($"Час виконання обчислень в потоках по одному на рядок матриці: {CalcTimeOnGenerating(() => matrixLib.MultiplyEachRowInThread(a, b, c, dimension))} мілісекунд");
+    Console.WriteLine($"Час виконання обчислень в 2 потоках: {CalcTimeOnGenerating(() => matrixLib.matrixMultiplyDynamicThreads(a, b, c, dimension, 2))}  секунд");
 
 
-//4 Тест
+    //5 Тест
 
-Console.WriteLine($"Час виконання обчислень в 2 потоках: {CalcTimeOnGenerating(() => matrixLib.matrixMultiplyDynamicThreads(a, b, c, dimension,2))} мілісекунд");
-
-
-//5 Тест
-
-Console.WriteLine($"Час виконання обчислень в 4 потоках: {CalcTimeOnGenerating(() => matrixLib.matrixMultiplyDynamicThreads(a, b, c, dimension, 4))} мілісекунд");
+    Console.WriteLine($"Час виконання обчислень в 4 потоках: {CalcTimeOnGenerating(() => matrixLib.matrixMultiplyDynamicThreads(a, b, c, dimension, 4))}  секунд");
 
 
-//6 Тест
+    //6 Тест
 
-Console.WriteLine($"Час виконання обчислень в 8 потоках: {CalcTimeOnGenerating(() => matrixLib.matrixMultiplyDynamicThreads(a, b, c, dimension, 8))} мілісекунд");
+    Console.WriteLine($"Час виконання обчислень в 8 потоках: {CalcTimeOnGenerating(() => matrixLib.matrixMultiplyDynamicThreads(a, b, c, dimension, 8))}  секунд");
 
 
-//7 Тест
+    //7 Тест
 
-Console.WriteLine($"Час виконання обчислень в 16 потоках: {CalcTimeOnGenerating(() => matrixLib.matrixMultiplyDynamicThreads(a, b, c, dimension, 16))} мілісекунд");
+    Console.WriteLine($"Час виконання обчислень в 16 потоках: {CalcTimeOnGenerating(() => matrixLib.matrixMultiplyDynamicThreads(a, b, c, dimension, 16))}  секунд");
+    Console.WriteLine(string.Empty);
+}
 
 
 

@@ -26,7 +26,7 @@ string resultFile = args[1];
 
 //    C:\Users\Danylo\Desktop\My_Project_ADO_NET\MyCustomArchiveToTar\bin\Debug\net8.0\MyCustomArchiveToTar.exe SchoolDiary ArchiveFile          - команда
 
-//ArchiveFolder(@"C:\Users\Danylo\Desktop\My_Project_ADO_NET\" + nameFile, resultFile + ".tar.bz2"); // з + bz2 варіант
+/*ArchiveFolder(@"C:\Users\Danylo\Desktop\My_Project_ADO_NET\" + nameFile, resultFile + ".tar.bz2");*/ // з + bz2 варіант -- TO DO - > немає архіватора
 ArchiveFolder(@"C:\Users\Danylo\Desktop\My_Project_ADO_NET\" + nameFile, resultFile + ".tar");
 
 Console.WriteLine("Good job!!!");
