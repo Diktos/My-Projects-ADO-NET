@@ -5,7 +5,7 @@ namespace MatrixLib
     public class Matrix
     {
         #region
-        public double[,] CreateMatrix(int dimension)
+        public static double[,] CreateMatrix(int dimension)
         {
             var result = new double[dimension, dimension];
             for (int i = 0; i < dimension; i++)
@@ -18,11 +18,10 @@ namespace MatrixLib
             return result;
         }
 
-        public void MultiplreOneElement(object? param) // Один вихідний елемент при множенні
+        public static void MultiplreOneElement(object? param)
         {
             if (param == null)
                 throw new ArgumentNullException(nameof(param));
-
             MatrixParams matrixParams = (MatrixParams)param;
             double result = 0;
             for (int mi = 0; mi < matrixParams.dim; mi++)
@@ -35,7 +34,11 @@ namespace MatrixLib
         #endregion
 
 
+        // Створення методів класу з використанням потоків
+
+        #region
         // Множення в одному потоці
+
         public void MultiplySingleThread(double[,] a, double[,] b, double[,] c, int dimension)
         {
             Thread thread = new Thread(() =>
@@ -153,6 +156,87 @@ namespace MatrixLib
                 threads[thrInd].Start();
             }
         }
-        
+        #endregion
+
+
+
+        // Створення методів класу з використанням тасків
+        #region
+
+        // Множення в одному завданні
+        public void MultiplySingleTask(double[,] a, double[,] b, double[,] c, int dimension)
+        {
+            Task.Run(() =>
+            {
+                for (int i = 0; i < dimension; i++)
+                {
+                    for (int j = 0; j < dimension; j++)
+                    {
+                        var matrixParams = new MatrixParams(dimension, i, j, a, b, c, null);
+                        MultiplreOneElement(matrixParams);
+                    }
+                }
+            });
+        }
+
+        // Кожен елемент множиться окремим завданням
+        public void MultiplyEachElementInTask(double[,] a, double[,] b, double[,] c, int dimension)
+        {
+            var tasks = new List<Task>();
+            for (int i = 0; i < dimension; i++)
+            {
+                for (int j = 0; j < dimension; j++)
+                {
+                    var matrixParams = new MatrixParams(dimension, i, j, a, b, c, null);
+                    tasks.Add(Task.Run(() => MultiplreOneElement(matrixParams)));
+                }
+            }
+        }
+
+
+        // Кожен рядок множиться окремим завданням
+        public void MultiplyEachRowInTask(double[,] a, double[,] b, double[,] c, int dimension)
+        {
+            var tasks = new List<Task>();
+            for (int i = 0; i < dimension; i++)
+            {
+                int row = i;
+                tasks.Add(Task.Run(() =>
+                {
+                    for (int j = 0; j < dimension; j++)
+                    {
+                        var matrixParams = new MatrixParams(dimension, row, j, a, b, c, null);
+                        MultiplreOneElement(matrixParams);
+                    }
+                }));
+            }
+        }
+
+
+        // Динамічний вибір кількості завдань
+        public void MatrixMultiplyDynamicTasks(double[,] a, double[,] b, double[,] c, int dimension, int taskCount)
+        {
+            int rowsPerTask = dimension / taskCount;
+            Task[] tasks = new Task[taskCount];
+
+            for (int taskIndex = 0; taskIndex < taskCount; taskIndex++)
+            {
+                int startRow = taskIndex * rowsPerTask;
+                int endRow = (taskIndex == taskCount - 1) ? dimension : startRow + rowsPerTask;
+
+                tasks[taskIndex] = Task.Run(() =>
+                {
+                    for (int i = startRow; i < endRow; i++)
+                    {
+                        for (int j = 0; j < dimension; j++)
+                        {
+                            var matrixParams = new MatrixParams(dimension, i, j, a, b, c, null);
+                            MultiplreOneElement(matrixParams);
+                        }
+                    }
+                });
+            }
+        }
+        #endregion
     }
 }
