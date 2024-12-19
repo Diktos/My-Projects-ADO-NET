@@ -66,7 +66,7 @@ for (int i = 0; i < dimensions.Length; i++)
     Console.WriteLine($"Час виконання обчислень в 1 завданні: {CalcTimeOnGeneratingOnMilliseconds(() => matrixLib.MultiplySingleTask(a, b, c, dimension))} мілісекунд");
 
     // 2 Тест 
-    //Console.WriteLine($"Час виконання обчислень в завданнях по одному на результатуючу ячейку: {CalcTimeOnGeneratingOnMilliseconds(() => matrixLib.MultiplyEachElementInTask(a, b, c, dimension))} мілісекунд");
+    Console.WriteLine($"Час виконання обчислень в завданнях по одному на результатуючу ячейку: {CalcTimeOnGeneratingOnMilliseconds(() => matrixLib.MultiplyEachElementInTask(a, b, c, dimension))} мілісекунд");
 
     // 3 Тест 
     Console.WriteLine($"Час виконання обчислень в завданнях по одному на рядок матриці: {CalcTimeOnGeneratingOnMilliseconds(() => matrixLib.MultiplyEachRowInTask(a, b, c, dimension))} мілісекунд");

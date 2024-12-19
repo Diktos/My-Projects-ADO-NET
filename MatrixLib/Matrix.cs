@@ -2,6 +2,15 @@
 
 namespace MatrixLib
 {
+    // При замірах краще [], ніж List, бо ця колекція з динамічним розміром,
+    // яка автоматично розширюється, коли в неї додаються нові елементи.
+    // Це передбачає копіювання елементів у новий більший масив, якщо початковий розмір перевищено.
+    // Наслідки:
+    // Накладні витрати на копіювання даних, особливо при великій кількості завдань.
+    // Додатковий час на управління пам'яттю.
+    // Чому це не проблема для []:
+    // Масив [] має фіксований розмір, який задається одразу,
+    // і не потребує динамічного розширення, що усуває ці накладні витрати.
     public class Matrix
     {
         #region
@@ -182,13 +191,15 @@ namespace MatrixLib
         // Кожен елемент множиться окремим завданням
         public void MultiplyEachElementInTask(double[,] a, double[,] b, double[,] c, int dimension)
         {
-            var tasks = new List<Task>();
+            Task[] tasks = new Task[dimension*dimension];
+            int taskIndex = 0;
+
             for (int i = 0; i < dimension; i++)
             {
                 for (int j = 0; j < dimension; j++)
                 {
                     var matrixParams = new MatrixParams(dimension, i, j, a, b, c, null);
-                    tasks.Add(Task.Run(() => MultiplreOneElement(matrixParams)));
+                    tasks[taskIndex++] = Task.Run(() => MultiplreOneElement(matrixParams));
                 }
             }
         }
@@ -197,18 +208,18 @@ namespace MatrixLib
         // Кожен рядок множиться окремим завданням
         public void MultiplyEachRowInTask(double[,] a, double[,] b, double[,] c, int dimension)
         {
-            var tasks = new List<Task>();
+            Task[] tasks = new Task[dimension];
             for (int i = 0; i < dimension; i++)
             {
-                int row = i;
-                tasks.Add(Task.Run(() =>
+                int row = i; // Локальна змінна для уникнення замикання
+                tasks[row] = Task.Run(() =>
                 {
                     for (int j = 0; j < dimension; j++)
                     {
                         var matrixParams = new MatrixParams(dimension, row, j, a, b, c, null);
                         MultiplreOneElement(matrixParams);
                     }
-                }));
+                });
             }
         }
 
