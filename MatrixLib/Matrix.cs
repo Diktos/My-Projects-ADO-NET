@@ -48,7 +48,7 @@ namespace MatrixLib
         #region
         // Множення в одному потоці
 
-        public void MultiplySingleThread(double[,] a, double[,] b, double[,] c, int dimension)
+        public void MultiplySingleThread(double[,] a, double[,] b, double[,] c, int dimension, Action<int>? progress)
         {
             Thread thread = new Thread(() =>
             {
@@ -60,6 +60,7 @@ namespace MatrixLib
                         var matrixParams = new MatrixParams(dimension, i, j, a, b, c, null);
                         MultiplreOneElement(matrixParams);
                     }
+                    progress?.Invoke(i);
                 }
             });
             thread.Start();
@@ -67,7 +68,7 @@ namespace MatrixLib
 
 
         // Кожна комірка множиться в окремому потоці 
-        public void MultiplyEachElementInThread(double[,] a, double[,] b, double[,] c, int dimension)
+        public void MultiplyEachElementInThread(double[,] a, double[,] b, double[,] c, int dimension, Action<int>? progress)
         {
             var threads = new Thread[dimension * dimension];
             var ind = 0;
@@ -78,17 +79,18 @@ namespace MatrixLib
                     // Заповнюємо параметри для результатуючої матриці 
                     var matrixParams = new MatrixParams(dimension, i, j, a, b, c, null);
                     threads[ind] = new Thread(MultiplreOneElement);
-                    threads[ind].Start(matrixParams);
-                    ind++;
+                    threads[ind++].Start(matrixParams);
                 }
+                progress?.Invoke(i); // 
             }
         }
 
 
         // Кожен рядок множиться в окремому потоці (1/dim)
-        public void MultiplyEachRowInThread(double[,] a, double[,] b, double[,] c, int dimension)
+        public void MultiplyEachRowInThread(double[,] a, double[,] b, double[,] c, int dimension, Action<int>? progress)
         {
             var threads = new Thread[dimension];
+            int elementsProcessed = 0;
             for (int i = 0; i < dimension; i++)
             {
                 var row = i;
@@ -101,6 +103,8 @@ namespace MatrixLib
                     }
                 });
                 threads[i].Start();
+                elementsProcessed++;
+                progress?.Invoke(elementsProcessed);
             }
         }
 
@@ -139,10 +143,11 @@ namespace MatrixLib
 
 
         // Переваги: Динамічний вибір кількості потоків для множення матриць
-        public void matrixMultiplyDynamicThreads(double[,] a, double[,] b, double[,] c, int dimension, int threadCount) 
+        public void matrixMultiplyDynamicThreads(double[,] a, double[,] b, double[,] c, int dimension, int threadCount, Action<int>? progress) 
         {
             int rowsPerThread = dimension / threadCount; // Змінна для визначення кількості роботи для одного потока 40/4=10
-            Thread[] threads = new Thread[threadCount]; 
+            Thread[] threads = new Thread[threadCount];
+            int elementsProcessed = 0;
 
             for (int thrInd = 0; thrInd < threadCount; thrInd++)
             {
@@ -160,7 +165,9 @@ namespace MatrixLib
                             var matrixParams = new MatrixParams(dimension, i, j, a, b, c, null);
                             MultiplreOneElement(matrixParams);
                         }
-                    }
+                        elementsProcessed++;
+                        progress?.Invoke(elementsProcessed+1);
+                    }      
                 });
                 threads[thrInd].Start();
             }
@@ -173,7 +180,7 @@ namespace MatrixLib
         #region
 
         // Множення в одному завданні
-        public void MultiplySingleTask(double[,] a, double[,] b, double[,] c, int dimension)
+        public void MultiplySingleTask(double[,] a, double[,] b, double[,] c, int dimension, Action<int>? progress)
         {
             Task.Run(() =>
             {
@@ -182,14 +189,19 @@ namespace MatrixLib
                     for (int j = 0; j < dimension; j++)
                     {
                         var matrixParams = new MatrixParams(dimension, i, j, a, b, c, null);
-                        MultiplreOneElement(matrixParams);
+                        MultiplreOneElement(matrixParams); 
                     }
+                    progress?.Invoke(i);
+                    // Тут оновлення було знизу, щоб уникнути значно більшу кількість викликів progress?.Invoke.
+                    // Це може створити додаткове навантаження на Dispatcher, коли великі матриці
+                    // потенційно уповільнити роботу через блокування при оновленні UI,якщо після кожної ітерації оновлювати.
+
                 }
             });
         }
 
         // Кожен елемент множиться окремим завданням
-        public void MultiplyEachElementInTask(double[,] a, double[,] b, double[,] c, int dimension)
+        public void MultiplyEachElementInTask(double[,] a, double[,] b, double[,] c, int dimension, Action<int>? progress)
         {
             Task[] tasks = new Task[dimension*dimension];
             int taskIndex = 0;
@@ -199,16 +211,22 @@ namespace MatrixLib
                 for (int j = 0; j < dimension; j++)
                 {
                     var matrixParams = new MatrixParams(dimension, i, j, a, b, c, null);
-                    tasks[taskIndex++] = Task.Run(() => MultiplreOneElement(matrixParams));
-                }
+                    tasks[taskIndex++] = Task.Run(() =>
+                    { 
+                        MultiplreOneElement(matrixParams);
+                        progress?.Invoke(taskIndex);
+                     });
+                } 
+               
             }
         }
 
 
         // Кожен рядок множиться окремим завданням
-        public void MultiplyEachRowInTask(double[,] a, double[,] b, double[,] c, int dimension)
+        public void MultiplyEachRowInTask(double[,] a, double[,] b, double[,] c, int dimension, Action<int>? progress)
         {
             Task[] tasks = new Task[dimension];
+            int elementsProcessed = 0;
             for (int i = 0; i < dimension; i++)
             {
                 int row = i; // Локальна змінна для уникнення замикання
@@ -219,17 +237,20 @@ namespace MatrixLib
                         var matrixParams = new MatrixParams(dimension, row, j, a, b, c, null);
                         MultiplreOneElement(matrixParams);
                     }
-                });
+                    elementsProcessed++;
+                    progress?.Invoke(elementsProcessed);
+                }); 
+             
             }
         }
 
 
         // Динамічний вибір кількості завдань
-        public void MatrixMultiplyDynamicTasks(double[,] a, double[,] b, double[,] c, int dimension, int taskCount)
+        public void MatrixMultiplyDynamicTasks(double[,] a, double[,] b, double[,] c, int dimension, int taskCount, Action<int>? progress)
         {
             int rowsPerTask = dimension / taskCount;
             Task[] tasks = new Task[taskCount];
-
+            int progressBarNum = 0;
             for (int taskIndex = 0; taskIndex < taskCount; taskIndex++)
             {
                 int startRow = taskIndex * rowsPerTask;
@@ -244,6 +265,8 @@ namespace MatrixLib
                             var matrixParams = new MatrixParams(dimension, i, j, a, b, c, null);
                             MultiplreOneElement(matrixParams);
                         }
+                        progressBarNum++;
+                        progress?.Invoke(progressBarNum);
                     }
                 });
             }

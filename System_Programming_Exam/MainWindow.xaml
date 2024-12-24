@@ -1,0 +1,76 @@
+﻿<Window x:Class="System_Programming_Exam.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:System_Programming_Exam"
+        mc:Ignorable="d"
+        Title="MainWindow" Height="600" Width="800" Loaded="Window_Loaded">
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="4*"/>
+            <RowDefinition Height="3*"/>
+        </Grid.RowDefinitions>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="361*"/>
+            <ColumnDefinition Width="439*"/>
+        </Grid.ColumnDefinitions>
+        <StackPanel Orientation="Horizontal" Grid.Row="0" Margin="10,10,10,10">
+            <TextBlock Text="Dimension matrix:" VerticalAlignment="Center" Margin="0,0,10,0" Foreground="Blue" FontWeight="DemiBold"/>
+            <TextBox Text="{Binding Dimension}" Width="100" VerticalAlignment="Center"/>
+        </StackPanel>
+        <StackPanel Orientation="Horizontal" Grid.Row="0" Grid.Column="1">
+            <Button x:Name="StartTestButton" Content="Start Test" Margin="70,10,0,10" Width="100" Height="30" FontWeight="Bold" Background="Green" Click="StartTest_Click"/>
+            <Button x:Name="StopTestButton" Content="Stop Test" Margin="100,10,0,10" Width="100" Height="30" FontWeight="Bold" Background="Red" Click="StopTest_Click"/>
+        </StackPanel>
+
+        <StackPanel Grid.Row="1" Grid.Column="0" Margin="10">
+            <TextBlock Text="Thread ProgressBar Parameters" FontWeight="Bold" Margin="0,0,0,10"/>
+            <CheckBox Content="Activate ThreadTest 1 ( 1 thread )" x:Name="ThreadCheckBox1" Margin="0,8"/>
+            <CheckBox Content="Activate ThreadTest 2 ( 1 row = 1 thread )" x:Name="ThreadCheckBox2" Margin="0,8"/>
+            <CheckBox Content="Activate ThreadTest 3 ( *dec = *thread )" x:Name="ThreadCheckBox3" Margin="0,8"/>
+            <CheckBox Content="Activate ThreadTest 4 ( enter below number threads )" x:Name="ThreadCheckBox4" Margin="0,8"/>
+            <TextBlock Text="Enter number of threads for the test ThreadTest 4:" Margin="2,5" />
+            <TextBox x:Name="NumberOfThreads" HorizontalAlignment="Left" Width="300" Margin="2,0" />
+            <TextBlock Text="Thread Priority:" Margin="0,8,0,5"/>
+            <ComboBox x:Name="ThreadPriorityComboBox" SelectedIndex="0" Height="20">
+                <ComboBoxItem Content="Lowest" />
+                <ComboBoxItem Content="BelowNormal" />
+                <ComboBoxItem Content="Normal" />
+                <ComboBoxItem Content="AboveNormal" />
+                <ComboBoxItem Content="Highest" />
+            </ComboBox>
+        </StackPanel>
+
+        <StackPanel Grid.Row="2" Grid.Column="0" Margin="10">
+            <TextBlock Text="Task ProgressBar Parameters" FontWeight="Bold" Margin="0,0,0,10"/>
+            <CheckBox Content="Activate TaskTest 1 ( 1 task )" x:Name="TaskCheckBox1" Margin="0,8"/>
+            <CheckBox Content="Activate TaskTest 2 ( 1 row = 1 task )" x:Name="TaskCheckBox2" Margin="0,8"/>
+            <CheckBox Content="Activate TaskTest 3 ( *dec = *task )" x:Name="TaskCheckBox3" Margin="0,8"/>
+            <CheckBox Content="Activate TaskTest 4 ( enter below number tasks )" x:Name="TaskCheckBox4" Margin="0,8"/>
+            <TextBlock Text="Enter number of threads for the test TaskTest 4:" Margin="2,5"/>
+            <TextBox x:Name="NumberOfTasks" HorizontalAlignment="Left" Width="300" Margin="2,0" />
+        </StackPanel>
+
+        <StackPanel Grid.Row="1" Grid.Column="1" Margin="10">
+            <TextBlock Text="Thread ProgressBars" FontWeight="Bold" Margin="0,0,0,10" HorizontalAlignment="Center"/>
+            <ProgressBar x:Name="ThreadProgressBar1" Height="20" Margin="0,5" Maximum="100"/>
+            <ProgressBar x:Name="ThreadProgressBar2" Height="20" Margin="0,5" Maximum="100"/>
+            <ProgressBar x:Name="ThreadProgressBar3" Height="20" Margin="0,5" Maximum="100"/>
+            <ProgressBar x:Name="ThreadProgressBar4" Height="20" Margin="0,5" Maximum="100"/>
+        </StackPanel>
+
+        <StackPanel Grid.Row="2" Grid.Column="1" Margin="10">
+            <TextBlock Text="Task ProgressBars" FontWeight="Bold" Margin="0,0,0,10" HorizontalAlignment="Center"/>
+            <ProgressBar x:Name="TaskProgressBar1" Height="20" Margin="0,5" Maximum="100"/>
+            <ProgressBar x:Name="TaskProgressBar2" Height="20" Margin="0,5" Maximum="100"/>
+            <ProgressBar x:Name="TaskProgressBar3" Height="20" Margin="0,5" Maximum="100"/>
+            <ProgressBar x:Name="TaskProgressBar4" Height="20" Margin="0,5" Maximum="100"/>
+        </StackPanel>
+        
+       
+    </Grid>
+
+
+</Window>
