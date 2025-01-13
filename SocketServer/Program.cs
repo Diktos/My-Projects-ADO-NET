@@ -15,8 +15,7 @@ try
         Socket connectedSocket = socketListener.Accept();
         Console.WriteLine($"Connected from {connectedSocket.RemoteEndPoint}");
 
-        //Task.Run(() =>
-        //{ 
+       
             // Масив для тимчасового зберігання отриманих байтів з сокета
             var buffer = new byte[1024];
             // Використовується для побудови кінцевого тексту відповіді, що надійшла від сервера
@@ -25,19 +24,19 @@ try
             int bytes = 0;
 
         // Асинхронне слухання клієнта
-        //Task receiveTask = Task.Run(() =>
-        //{
-        while (true)
+        Task receiveTask = Task.Run(() =>
         {
-            data.Clear();
-            bytes = 0;
+            while (true)
+            {
+                data.Clear();
+                bytes = 0;
 
-            do
+                do
                 {
                     bytes = connectedSocket.Receive(buffer, buffer.Length, 0);
                     data.Append(Encoding.UTF8.GetString(buffer, 0, bytes));
-                } while (!data.ToString().EndsWith("\r\n") || bytes<=0);
-                    //}
+                } while (!data.ToString().EndsWith("\r\n") || bytes <= 0);
+
 
                 Console.WriteLine();
                 Console.WriteLine($"Data from client: {data}");
@@ -47,31 +46,29 @@ try
                 }
 
                 //  Повідомлень для кліэнта
-                Console.Write("-->");
+
                 string responseMessage = Console.ReadLine() + "\r\n";
                 var responseData = Encoding.UTF8.GetBytes(responseMessage);
                 connectedSocket.Send(responseData);
-        }
-                //});
-
-                //Task sendTask = Task.Run(() =>
-                //{
-                //    while (true)
-                //    {
-                //Console.Write("-->");
-                //string responseMessage = Console.ReadLine() + "\r\n";
-                //var responseData = Encoding.UTF8.GetBytes(responseMessage);
-                //connectedSocket.Send(responseData);
-
-                //if (responseMessage.Equals("EOF"))
-                //{
-                //    break;
-                //}
-                //    }
-                ////});
-
-                //});
             }
+        });
+
+        Task sendTask = Task.Run(() =>
+            {
+                while (true)
+                {
+                    Console.Write("-->");
+                    string responseMessage = Console.ReadLine() + "\r\n";
+                    var responseData = Encoding.UTF8.GetBytes(responseMessage);
+                    connectedSocket.Send(responseData);
+
+                    if (responseMessage.Equals("EOF"))
+                    {
+                        break;
+                    }
+                }
+            }); 
+        }
 }
 catch (Exception e)
 {
