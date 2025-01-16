@@ -83,9 +83,9 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "SocketServer", "SocketServe
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "TCPDemo", "TCPDemo\TCPDemo.csproj", "{9FA3FACF-DEE8-413F-B81E-7FD165EC904E}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TCPDemo_Client", "TCPDemo_Client\TCPDemo_Client.csproj", "{EBA25FA8-8748-4359-8000-AB3B025E4B83}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "TCPDemo_Client", "TCPDemo_Client\TCPDemo_Client.csproj", "{EBA25FA8-8748-4359-8000-AB3B025E4B83}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TCPDemo_Server", "TCPDemo_Server\TCPDemo_Server.csproj", "{E9CB7604-8D05-4EF7-A3A7-6651F67A6943}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "TCPDemo_Server", "TCPDemo_Server\TCPDemo_Server.csproj", "{E9CB7604-8D05-4EF7-A3A7-6651F67A6943}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
