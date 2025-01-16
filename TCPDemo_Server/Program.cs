@@ -101,7 +101,17 @@ public class Server
                                 // Формуємо повідомлення
                                 var messageForSending = string.Join(' ', messageParts, 2, messageParts.Length - 2);
                                 // Відправка
-                                SendMessage(GetClientName(_tcpClient), recipientName, messageForSending);
+                                SendMessage(GetClientName(_tcpClient), recipientName, messageForSending, true);
+                                continue;
+                            }
+                            if (messageParts.Length == 2 && messageParts[0] == "sendall")
+                            {
+                                // Отримуємо ім'я одержувача з строки
+                                var recipientName = messageParts[1];
+                                // Формуємо повідомлення
+                                var messageForSending = string.Join(' ', messageParts, 1, messageParts.Length - 1);
+                                // Відправка
+                                SendMessage(GetClientName(_tcpClient), recipientName, messageForSending, false);
                                 continue;
                             }
                             // Сервер бачить некоректні повідомлення користувача також
@@ -133,25 +143,45 @@ public class Server
         }
 
 
-        private static void SendMessage(string clientSender, string clientRecipient, string message)
+        private static void SendMessage(string clientSender, string clientRecipient, string message, bool privateMsg)
         {
-            Console.ForegroundColor = ConsoleColor.Yellow;
-            string messageOnServer = $"[{clientSender}] -> [{clientRecipient}]: {message}";
-            Console.WriteLine(messageOnServer);
-            
-            foreach (var kvp in clients)
+            if (privateMsg)
             {
-                if (kvp.Key == clientRecipient)
+                Console.ForegroundColor = ConsoleColor.Yellow;
+                string messageOnServer = $"[{clientSender}] -> [{clientRecipient}]: {message}";
+                Console.WriteLine(messageOnServer);
+
+                foreach (var kvp in clients)
                 {
-                    string messageForRecipient = $"[{clientSender}]: {message}";
-                    var clientStream = kvp.Value.GetStream();
-                    byte[] responseData = Encoding.UTF8.GetBytes(messageForRecipient);
-                    clientStream.Write(responseData, 0, responseData.Length);
-                    Console.ResetColor();
-                    break;
+                    if (kvp.Key == clientRecipient)
+                    {
+                        string messageForRecipient = $"[{clientSender}]: {message}";
+                        var clientStream = kvp.Value.GetStream();
+                        byte[] responseData = Encoding.UTF8.GetBytes(messageForRecipient);
+                        clientStream.Write(responseData, 0, responseData.Length);
+                        Console.ResetColor();
+                        break;
+                    }
                 }
             }
-
+            else
+            {
+                Console.ForegroundColor = ConsoleColor.Blue;
+                string messageOnServer = $"[{clientSender}] -> All: {message}";
+                Console.WriteLine(messageOnServer);
+                foreach (var kvp in clients)
+                {
+                    if (kvp.Key != clientRecipient)
+                    {
+                        string messageForRecipient = $"[{clientSender}] for all: {message}";
+                        var clientStream = kvp.Value.GetStream();
+                        byte[] responseData = Encoding.UTF8.GetBytes(messageForRecipient);
+                        clientStream.Write(responseData, 0, responseData.Length);
+                        Console.ResetColor();
+                        break;
+                    }
+                }
+            }
         }
 
         private static string GetClientName(TcpClient client)
