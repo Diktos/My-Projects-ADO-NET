@@ -173,7 +173,7 @@ public class Server
                 {
                     if (kvp.Key != clientRecipient)
                     {
-                        string messageForRecipient = $"[{clientSender}] for all: {message}";
+                        string messageForRecipient = $"[{clientSender}] to all: {message}";
                         var clientStream = kvp.Value.GetStream();
                         byte[] responseData = Encoding.UTF8.GetBytes(messageForRecipient);
                         clientStream.Write(responseData, 0, responseData.Length);
