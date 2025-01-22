@@ -91,7 +91,9 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "UDPDemo_Client_chatProgram"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "UDPDemo_Server_chatProgram", "UDPDemo_Server_chatProgram\UDPDemo_Server_chatProgram.csproj", "{7EC8929C-F531-411C-AB55-7B5465CFFC86}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "HttpClientDemo", "HttpClientDemo\HttpClientDemo.csproj", "{E7F89DA6-BFB7-45C7-9561-8B8102266F04}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "HttpClientDemo", "HttpClientDemo\HttpClientDemo.csproj", "{E7F89DA6-BFB7-45C7-9561-8B8102266F04}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "FTP(File Transfer Protocol) Client", "FTP(File Transfer Protocol) Client\FTP(File Transfer Protocol) Client.csproj", "{AD578F2A-F802-4183-9BF4-66B8C5B264D9}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -541,6 +543,18 @@ Global
 		{E7F89DA6-BFB7-45C7-9561-8B8102266F04}.Release|x64.Build.0 = Release|Any CPU
 		{E7F89DA6-BFB7-45C7-9561-8B8102266F04}.Release|x86.ActiveCfg = Release|Any CPU
 		{E7F89DA6-BFB7-45C7-9561-8B8102266F04}.Release|x86.Build.0 = Release|Any CPU
+		{AD578F2A-F802-4183-9BF4-66B8C5B264D9}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{AD578F2A-F802-4183-9BF4-66B8C5B264D9}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{AD578F2A-F802-4183-9BF4-66B8C5B264D9}.Debug|x64.ActiveCfg = Debug|Any CPU
+		{AD578F2A-F802-4183-9BF4-66B8C5B264D9}.Debug|x64.Build.0 = Debug|Any CPU
+		{AD578F2A-F802-4183-9BF4-66B8C5B264D9}.Debug|x86.ActiveCfg = Debug|Any CPU
+		{AD578F2A-F802-4183-9BF4-66B8C5B264D9}.Debug|x86.Build.0 = Debug|Any CPU
+		{AD578F2A-F802-4183-9BF4-66B8C5B264D9}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{AD578F2A-F802-4183-9BF4-66B8C5B264D9}.Release|Any CPU.Build.0 = Release|Any CPU
+		{AD578F2A-F802-4183-9BF4-66B8C5B264D9}.Release|x64.ActiveCfg = Release|Any CPU
+		{AD578F2A-F802-4183-9BF4-66B8C5B264D9}.Release|x64.Build.0 = Release|Any CPU
+		{AD578F2A-F802-4183-9BF4-66B8C5B264D9}.Release|x86.ActiveCfg = Release|Any CPU
+		{AD578F2A-F802-4183-9BF4-66B8C5B264D9}.Release|x86.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -565,6 +579,7 @@ Global
 		{4EF3EE2A-82C6-4961-B1D1-6A5BD75AA27B} = {BBD73570-3D73-49F7-AF1B-CCA556B07BD2}
 		{7EC8929C-F531-411C-AB55-7B5465CFFC86} = {BBD73570-3D73-49F7-AF1B-CCA556B07BD2}
 		{E7F89DA6-BFB7-45C7-9561-8B8102266F04} = {BBD73570-3D73-49F7-AF1B-CCA556B07BD2}
+		{AD578F2A-F802-4183-9BF4-66B8C5B264D9} = {BBD73570-3D73-49F7-AF1B-CCA556B07BD2}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {E4D6B3FE-3855-4F38-8ADC-8DD908DF6814}

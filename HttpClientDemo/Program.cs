@@ -3,6 +3,14 @@ using System.ComponentModel;
 using System.Net;
 using System.Net.Http.Json;
 
+
+// HTTP (HyperText Transfer Protocol) — це протокол для передачі даних у вебмережі.
+// Він використовується для зв’язку між ВЕББРАУЗЕРОМ (клієнтом) і СЕРВЕРОМ.
+
+// Використовується для перегляду вебсторінок або отримання ресурсів із серверів сайтів.
+
+
+
 //var client = new HttpClient();
 //client.BaseAddress = new Uri("https://jsonplaceholder.typicode.com");
 //client.DefaultRequestHeaders.Accept.Clear();
@@ -15,7 +23,6 @@ using System.Net.Http.Json;
 
 
 //var response = await client.GetAsync("posts"); // GET https://jsonplaceholder.typicode.com/posts
-
 
 
 var client = new HttpClient();
