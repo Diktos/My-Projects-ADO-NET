@@ -28,8 +28,8 @@ public class UDPChat
     public void Start()
     {
         udpClient = new UdpClient();
+        udpClient.Client.Bind(new IPEndPoint(IPAddress.Any, Port));
         udpClient.EnableBroadcast = true;
-
         Console.Write("Enter your nickname: ");
         nickname = Console.ReadLine();
 
